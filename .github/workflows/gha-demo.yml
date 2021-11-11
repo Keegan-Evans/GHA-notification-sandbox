@@ -13,6 +13,12 @@ jobs:
           pytest -k test_robert
       - name: display job status
         run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: comment on failing
+        if: ${{ failure() }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: 1
+          body: 🥺  your run failed ${{ github.run_attempt }}
 
   run_failing:
     name: runs a failing test
