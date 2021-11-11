@@ -21,4 +21,3 @@ jobs:
       - name: greet michael
         run: |
           pytest -k test_not_robert
-      - run: echo "🍏 This job's status is ${{ job.status }}."
