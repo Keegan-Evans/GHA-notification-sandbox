@@ -35,7 +35,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: 1
-          body: "🥺  your run failed"
+          body: 🥺  your run failed ${{ github.run_attempt }}
 
 
           #comment_on_failing:
