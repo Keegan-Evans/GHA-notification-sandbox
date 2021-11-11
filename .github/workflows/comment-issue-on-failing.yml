@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
-      - run: echo "\x1F979, your run failed" 
+      - run: echo "\xf0\x9f\xa5\xba your run failed" 
