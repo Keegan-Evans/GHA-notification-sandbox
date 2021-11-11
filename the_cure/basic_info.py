@@ -1,2 +1,4 @@
 def hello_robert_smith():
-    print("hello robert smith")
+    hello = "hello robert smith" 
+    print(hello)
+    return hello
