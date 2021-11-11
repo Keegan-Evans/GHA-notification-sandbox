@@ -13,6 +13,7 @@ jobs:
           pytest -k test_robert
       - name: display job status
         run: echo "🍏 This job's status is ${{ job.status }}."
+
   run_failing:
     name: runs a failing test
     runs-on: ubuntu-latest
@@ -23,3 +24,21 @@ jobs:
       - name: greet michael
         run: |
           pytest -k test_not_robert
+      - name: comment on failing
+        if: ${{ failure() }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: 1
+          body: "🥺  your run failed"
+
+
+          #comment_on_failing:
+          #  runs-on: ubuntu-latest
+          #  if: ${{ jobs.run_failing.status == 'failure' }}
+          #  steps::
+          #    - run: echo "🥺 your run failed"
+          #    - name: comment on issue
+          #      uses: peter-evans/create-or-update-comment@v1
+          #      with:
+          #        issue-number: 1
+          #        body: "🥺  your run failed"
