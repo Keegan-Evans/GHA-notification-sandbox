@@ -21,15 +21,4 @@ jobs:
       - name: greet michael
         run: |
           pytest -k test_not_robert
-
-name: comment issue on failing
-on:
-  workflow_run:
-    workflows: ["this close to me"]
-    types: [completed]
-jobs:      
-  on_failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      run: echo "U+1F979, your run failed" 
+      - run: echo "🍏 This job's status is ${{ job.status }}."
