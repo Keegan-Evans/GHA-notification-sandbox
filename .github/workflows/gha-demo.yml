@@ -1,15 +1,35 @@
-name: GitHub Actions Demo
+name: this close to me
 on: [push]
 jobs:
-  run_failing:
-    name: fails on purpose
+  run_passing:
+    name: runs passing test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - name: hello world
+      - name: hello robert
         run: |
-          python -c 'from the_cure import hello_robert_smith; hello_robert_smith()'
+          pytest -k test_robert
       - run: echo "🍏 This job's status is ${{ job.status }}."
+  run_failing:
+    name: runs a failing test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: greet michael
+        run: |
+          pytest -k test_not_robert
+
+name: comment issue on failing
+on:
+  workflow_run:
+    workflows: ["this close to me"]
+    types: [completed]
+jobs:      
+  on_failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      run: echo "U+1F979, your run failed" 
