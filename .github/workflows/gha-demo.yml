@@ -1,7 +1,5 @@
 name: GitHub Actions Demo
-on:
-  schedule:
-    -cron: '* * * * *'
+on: [push]
 jobs:
   run_failing:
     name: fails on purpose
