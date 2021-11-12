@@ -19,8 +19,8 @@ jobs:
         with:
           issue-number: 1
           body: |
-            🥺 run # ${{ github.run_number }} failed.
-            See https://github.com/Keegan-Evans/GHA-notification-sandbox/actions/runs/${{ github.run_id }}
+            - 🥺 run # ${{ github.run_number }} failed.
+            - See https://github.com/Keegan-Evans/GHA-notification-sandbox/actions/runs/${{ github.run_id }}
 
   run_failing:
     name: runs a failing test
@@ -37,4 +37,6 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: 1
-          body: 🥺  your run failed ${{ github.run_number }}
+          body: |
+            - 🥺 run # ${{ github.run_number }} failed.
+            - See https://github.com/Keegan-Evans/GHA-notification-sandbox/actions/runs/${{ github.run_id }}
