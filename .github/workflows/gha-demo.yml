@@ -13,14 +13,6 @@ jobs:
           pytest -k test_robert
       - name: display job status
         run: echo "🍏 This job's status is ${{ job.status }}."
-      - name: comment on failing
-        if: ${{ failure() }}
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          issue-number: 1
-          body: |
-            - 🥺 run # ${{ github.run_number }} failed.
-            - See https://github.com/Keegan-Evans/GHA-notification-sandbox/actions/runs/${{ github.run_id }}
 
   run_failing:
     name: runs a failing test
@@ -32,11 +24,15 @@ jobs:
       - name: greet michael
         run: |
           pytest -k test_not_robert
-      - name: comment on failing
-        if: ${{ failure() }}
+
+  comment_on_any_failure:
+    runs-on: ubuntu-latest
+    if: always() && (needs.run_passing.result == 'failure' || needs.run_failing.result == 'failure')
+    steps:
+      - name: comment on failure
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: 1
           body: |
-            - 🥺 run # ${{ github.run_number }} failed.
-            - See https://github.com/Keegan-Evans/GHA-notification-sandbox/actions/runs/${{ github.run_id }}
+            - 🥺  GHA run # ${{ github.run_number }} for ${{ env.epoch }} on ${{ env.os }} failed.
+            - See https://github.com/qiime2/package-integration/actions/runs/${{ github.run_id }} for more.
